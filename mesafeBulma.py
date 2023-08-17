@@ -20,19 +20,21 @@ def mesafeBul(kaynakIl, kaynakIlce, hedefIl, hedefIlce):
     #print(x.group(1))
     return x.group(1)
 
+'''
+kaynakIlce = 'ZARA'
+kaynakIl = 'sivas'
 
-kaynakIlce = 'ERUH'
-kaynakIl = 'SİİRT'
-
-hedefIlce = 'KOZAN'
-hedefIl = 'ADANA'
+hedefIlce = 'çilimli'
+hedefIl = 'düzce'
 
 print(mesafeBul(kaynakIl.encode('utf-8').decode('latin-1'), kaynakIlce.encode('utf-8').decode('latin-1'), 
                 hedefIl.encode('utf-8').decode('latin-1'), hedefIlce.encode('utf-8').decode('latin-1')
                 ))
 
 
-
+print(mesafeBul(kaynakIl, kaynakIlce, 
+                hedefIl, hedefIlce
+                ))
 
 iller = pd.read_csv("il.csv", header=None,)
 iller.rename(columns = {0: 'plaka', 1:'sehirAdi'}, inplace=True)
@@ -82,23 +84,21 @@ for plaka in range(70,83):
                 uzakliktablosu.at[i, 'mesafe'] = 0
             i += 1
     uzakliktablosu.to_csv('uzaklıklar1/uzakliktablosu_'+str(plaka)+'.csv', index=False)
+'''
 ###################################################################################
-x = 0
-for plaka in range(63,65):
-    uzakliktablosu = pd.read_csv('uzaklıklar1/uzakliktablosu_'+str(plaka)+'.csv')
-    for index, row in uzakliktablosu.iloc[:,:].iterrows():
-        mesafe = mesafeBul(row.sehirAdikaynak.encode('utf-8').decode('latin-1'), 
-               row.ilceAdiKaynak.encode('utf-8').decode('latin-1'), 
-               row.sehirAdiHedef.encode('utf-8').decode('latin-1'), 
-               row.ilceAdiHedef.encode('utf-8').decode('latin-1')
-               )
-        #print(row, mesafe)
-        uzakliktablosu.at[index, 'mesafe'] = mesafe
-        x += 1
-    print(plaka)
-    if x % 100 ==  0:
-        uzakliktablosu.to_csv('uzaklıklar2/uzakliktablosu_'+str(plaka)+'.csv', index=False)
-    uzakliktablosu.to_csv('uzaklıklar2/uzakliktablosu_'+str(plaka)+'.csv', index=False)           
+plaka = 64
+#for plaka in range(59,65):
+uzakliktablosu = pd.read_csv('uzaklıklar1/uzakliktablosu_'+str(plaka)+'.csv')
+for index, row in uzakliktablosu.iloc[:,:].iterrows():
+    mesafe = mesafeBul(row.sehirAdikaynak.encode('utf-8').decode('latin-1'), 
+           row.ilceAdiKaynak.encode('utf-8').decode('latin-1'), 
+           row.sehirAdiHedef.encode('utf-8').decode('latin-1'), 
+           row.ilceAdiHedef.encode('utf-8').decode('latin-1')
+           )
+    #print(row, mesafe)
+    uzakliktablosu.at[index, 'mesafe'] = mesafe
+print(plaka)
+uzakliktablosu.to_csv('uzaklıklar2/uzakliktablosu_'+str(plaka)+'.csv', index=False)           
 
 #uzakliktablosu.to_csv('uzaklıklar2/uzakliktablosu_1.csv', index=False)  
 
