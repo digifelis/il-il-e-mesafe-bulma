@@ -1,0 +1,5 @@
+fastapi=0.88.0
+mysql-connector-python
+pandas
+numpy
+typing-extensions
